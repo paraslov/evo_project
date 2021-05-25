@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import './App.css'
+import {_axios, _BaseURL} from './axios/_axios';
+import {TaskPriorityType} from './EvoDB/commonTasks';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let [prio, setPrio]= useState<TaskPriorityType | undefined>(undefined)
+    const onQueryClick = () => {
+        _axios.get(_BaseURL + 'common_tasks/')
+            .then((res: any) => {
+                console.log(res)
+                setPrio(res.data.programming.priority)
+            })
+            .catch(err => console.warn(err))
+    }
+
+    return (
+        <div className="App">
+            <button onClick={onQueryClick}>query</button>
+            {prio && <Tasks prio={prio} />}
+        </div>
+    );
+}
+
+type TasksPropsType = {
+    prio: TaskPriorityType
+}
+const Tasks: React.FC<TasksPropsType> = (props) => {
+    return (
+        <div>
+            <span>{`programming prio is: ${props.prio}`}</span>
+        </div>
+    )
 }
 
 export default App;
