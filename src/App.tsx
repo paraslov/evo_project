@@ -1,15 +1,16 @@
 import React, {useState} from 'react'
 import './App.css'
-import {_axios, _BaseURL} from './axios/_axios';
-import {TaskPriorityType} from './EvoDB/commonTasks';
+import {_axios, _BaseURL} from './axios/_axios'
+import {TaskType} from './EvoDB/commonTasks'
+import s from './Tasks.module.css'
 
 function App() {
-    let [prio, setPrio]= useState<TaskPriorityType | undefined>(undefined)
+    let [tasks, setTasks]= useState<TaskType[] | undefined>(undefined)
     const onQueryClick = () => {
         _axios.get(_BaseURL + 'common_tasks/')
             .then((res: any) => {
                 console.log(res)
-                setPrio(res.data.programming.priority)
+                setTasks(res.data.tasks)
             })
             .catch(err => console.warn(err))
     }
@@ -17,18 +18,25 @@ function App() {
     return (
         <div className="App">
             <button onClick={onQueryClick}>query</button>
-            {prio && <Tasks prio={prio} />}
+            <div className={s.tableTitles}>
+                <div>Task name</div>
+                <div>Task priority</div>
+                <div>Practicing time</div>
+            </div>
+            {tasks && tasks.map((task, i) => <Tasks task={task} key={i}/>)}
         </div>
     );
 }
 
 type TasksPropsType = {
-    prio: TaskPriorityType
+    task: TaskType
 }
-const Tasks: React.FC<TasksPropsType> = (props) => {
+const Tasks: React.FC<TasksPropsType> = ({task}) => {
     return (
-        <div>
-            <span>{`programming prio is: ${props.prio}`}</span>
+        <div className={s.table}>
+            <div>{task.name}</div>
+            <div className={s.tableItem}>{task.priority}</div>
+            <div>{task.timeUsed}</div>
         </div>
     )
 }

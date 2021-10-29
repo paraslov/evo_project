@@ -1,30 +1,31 @@
 import {TasksType} from './commonTasks';
 
 
-export const commonTasks: TasksType = {
-    programming: {
+export const programmingTasks: TasksType = {
+    tasks: [{
+        name: 'ReactJS',
         priority: 'S+',
         timeUsed: 0
-    },
-    sport: {
-        priority: 'A',
+    },{
+        name: 'JS',
+        priority: 'A+',
         timeUsed: 0
-    },
-    psychology: {
+    },{
+        name: 'Html&css',
+        priority: 'B',
+        timeUsed: 0
+    },{
+        name: 'Redux',
         priority: 'S',
         timeUsed: 0
-    },
-    languages: {
+    },{
+        name: 'Unit tests & Storybook',
         priority: 'A',
         timeUsed: 0
-    },
-    rest: {
+    },{
+        name: 'Redux toolkit',
         priority: 'A',
         timeUsed: 0
-    },
-    healthMeal: {
-        priority: 'A',
-        timeUsed: 0
-    },
+    }],
     resultCode: 0
 }

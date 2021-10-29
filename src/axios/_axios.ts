@@ -1,4 +1,5 @@
 import {commonTasks} from '../EvoDB/commonTasks';
+import {programmingTasks} from '../EvoDB/programmingTasks'
 
 export const _BaseURL = 'https://para-slov.ru/'
 const _baseResponse = {
@@ -15,6 +16,9 @@ export const _axios = {
                 switch (url) {
                     case _BaseURL + 'common_tasks/':
                         res({..._baseResponse, data: commonTasks,})
+                        break
+                    case _BaseURL + 'programming_tasks/':
+                        res({..._baseResponse, data: programmingTasks})
                         break
                     default:
                         rej({message: 'Error: check if URL is correct', resultCode: 1})
